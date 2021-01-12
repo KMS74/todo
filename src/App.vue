@@ -9,10 +9,10 @@
       </div>
       <template v-else>
         <div class="row">
-          <div class="col font-weight-bold text-left">
+          <div class="col col-8 font-weight-bold text-left">
             <div class="task-title">Tasks</div>
           </div>
-          <div class="col font-weight-bold text-right task-title">
+          <div class="col col-4 font-weight-bold text-right task-title">
             <div class="task-title">Done</div>
           </div>
         </div>
@@ -21,12 +21,12 @@
           v-for="task in filteredTasks"
           v-bind:key="task.action"
         >
-          <div class="col text-left">
+          <div class="col col-8 text-left">
             <div class="tasks-title">
               {{ task.action }}
             </div>
           </div>
-          <div class="col text-right px-5">
+          <div class="col col-4 text-right px-5">
             <div class="tasks-title">
               <input
                 v-model="task.done"
@@ -46,7 +46,7 @@
               v-model="newItemText"
               type="text"
               class="form-control"
-              placeholder="add todo item"
+             placeholder="add todo list"
             />
           </div>
         </div>
