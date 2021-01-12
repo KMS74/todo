@@ -1,62 +1,84 @@
 <template>
-  <div id="app">
-    <h1 class="bg-primary text-white text-center p-3">{{ name }} To Do List</h1>
-    <div class="contaier-fluid p-4">
+  <div class="todo">
+    <h4 class="text-center p-3">{{ name }}'s To Do List</h4>
+    <div class="container text-center my-4">
       <div class="row" v-if="filteredTasks.length === 0">
         <div class="col text-center">
-          <h3 class="text-success my-4">No Thing To Do!</h3>
+          <h3 class="text-success my-4">No Thing To Do 😂</h3>
         </div>
       </div>
       <template v-else>
         <div class="row">
-          <div class="col font-weight-bold">Tasks</div>
-          <div class="col-2 font-weight-bold">Done</div>
+          <div class="col font-weight-bold text-left">
+            <div class="task-title">Tasks</div>
+          </div>
+          <div class="col font-weight-bold text-right task-title">
+            <div class="task-title">Done</div>
+          </div>
         </div>
-        <div class="row" v-for="task in filteredTasks" v-bind:key="task.action">
-          <div class="col">{{ task.action }}</div>
-          <div class="col-2">
-            <input
-              type="checkbox"
-              v-model="task.done"
-              class="form-check-input ml-2"
-            />
+        <div
+          class="row mb-3"
+          v-for="task in filteredTasks"
+          v-bind:key="task.action"
+        >
+          <div class="col text-left">
+            <div class="tasks-title">
+              {{ task.action }}
+            </div>
+          </div>
+          <div class="col text-right px-5">
+            <div class="tasks-title">
+              <input
+                v-model="task.done"
+                type="checkbox"
+                class="form-check-input"
+              />
+            </div>
           </div>
         </div>
       </template>
-      <div class="row py-2">
-        <div class="col">
-          <input
-            v-on:keyup.enter="addNewTodo()"
-            v-model="newItemText"
-            class="form-control"
-          />
+
+      <div class="row my-4">
+        <div class="col-7 col-lg-10">
+          <div class="form-group">
+            <input
+              v-on:keyup.enter="addNewTodo()"
+              v-model="newItemText"
+              type="text"
+              class="form-control"
+              placeholder="add todo item"
+            />
+          </div>
         </div>
-        <div class="col-2">
-          <button class="btn btn-primary" v-on:click="addNewTodo()">Add</button>
+        <div class="col-5 col-lg-2 text-right">
+          <button v-on:click="addNewTodo()" id="btn-add" class="btn">
+            Add Todo
+          </button>
         </div>
       </div>
-
-      <div class="row py-2 mt-2">
-        <div class="col-md-4">
+      <div class="row">
+        <div class="col-8 text-left">
           <button
-            v-bind:disabled="this.CompletedTasks.length === 0"
-            class="btn btn-danger"
             v-on:click="deleteCompletedTasks()"
+            v-bind:disabled="this.CompletedTasks.length === 0"
+            class="btn btn-danger btn-sm"
           >
             Delete Completed Tasks
           </button>
         </div>
       </div>
-      <div class="row py-2 mt-2 ml-2">
-        <div class="col-md-4">
-          <input
-            type="checkbox"
-            v-model="hideCompleted"
-            class="form-check-input"
-          />
-          <label class="form-check-label font-weight-bold">
-            Hide completed tasks
-          </label>
+      <div class="row my-3">
+        <div class="col-8 text-left">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input
+                v-model="hideCompleted"
+                type="checkbox"
+                class="form-check-input"
+              />
+              Hide completed tasks
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -78,7 +100,7 @@ export default {
   methods: {
     addNewTodo() {
       if (this.newItemText.length > 0) {
-        this.tasks.unshift({
+        this.tasks.push({
           action: this.newItemText,
           done: false,
         });
@@ -118,6 +140,33 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.todo {
+  padding: 20px;
+}
+.todo h4 {
+  font-weight: bold;
+  max-width: 70rem;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: #844685 !important;
+  color: #faf4ff !important;
+  -webkit-box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.5);
+}
+.task-title {
+  color: #fdb827;
+  font-size: 2.5rem;
+}
+.tasks-title {
+  color: #10375c;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+#btn-add {
+  background-color: #844685;
+  color: white;
+  border: 1px solid #844685;
+}
 </style>
 
